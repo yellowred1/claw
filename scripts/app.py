@@ -20,5 +20,5 @@ print(page.ele('.css-1xigfyl').text)
 time.sleep(5)
 # 2. 点击 GitHub
 page.ele('.chakra-button css-1ggp06u').click()
-time.sleep(5)
+time.sleep(15)
 print(page.ele('.authentication').text)
