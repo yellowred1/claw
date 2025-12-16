@@ -1,0 +1,42 @@
+name: ClawCloud 自动登录保活
+
+on:
+  schedule:
+    - cron: '0 6 */5 * *'  # 每5天 UTC 6:00 运行（注意时区！）
+  workflow_dispatch:
+
+jobs:
+  auto-login:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: 显示 Chrome 安装信息
+        run: |
+          echo "Chrome 路径: ${{ steps.setup-chrome.outputs.chrome-path }}"
+          echo "Chrome 版本: $(google-chrome --version)"
+          which google-chrome
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          pip install DrissionPage
+
+      - name: 运行自动登录
+        env:
+          GH_USERNAME: ${{ secrets.GH_USERNAME }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # ← 改为 TOKEN
+        run: python scripts/auto_login.py
