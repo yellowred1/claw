@@ -39,4 +39,4 @@ jobs:
         env:
           GH_USERNAME: ${{ secrets.GH_USERNAME }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}  # ← 改为 TOKEN
-        run: python scripts/auto_login.py
+        run: python scripts/app.py
