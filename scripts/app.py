@@ -16,6 +16,7 @@ co.set_argument("--window-size=1280,720")
 browser = Chromium(co)
 page= browser.latest_tab
 page.get('https://eu-central-1.run.claw.cloud/signin')
+print(page.html)
 
 # 2. 点击 GitHub
 page.ele('.chakra-button css-1ggp06u').click()
