@@ -16,16 +16,9 @@ co.set_argument("--window-size=1280,720")
 browser = Chromium(co)
 page= browser.latest_tab
 page.get('https://eu-central-1.run.claw.cloud/signin')
-print(page.html)
-
+print(page.ele('.css-1xigfyl').text)
+time.sleep(5)
 # 2. 点击 GitHub
 page.ele('.chakra-button css-1ggp06u').click()
 time.sleep(5)
-page.ele('.form-control js-login-field').input(os.environ.get('GH_USERNAME'))
-page.ele('.form-control form-control js-password-field').input(os.environ.get('GH_PASSWORD'))
-page.ele('.btn btn-primary btn-block js-sign-in-button').click()
-time.sleep(5)
-
-
-print(page.html)
-browser.quit()
+print(page.ele('.authentication').text)
